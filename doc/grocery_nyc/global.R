@@ -1,8 +1,8 @@
 # data preprocessing
 
 # loading data sets
-retail_stores = read.csv("../grocery_nyc/Retail_Food_Stores.csv")
-covid = read_csv("../grocery_nyc/data-by-modzcta.csv")
+retail_stores = read.csv("../Retail_Food_Stores.csv")
+covid = read_csv("../data-by-modzcta.csv")
 
 # subset only number of cases and zip codes
 covid_sub = covid[,c("MODIFIED_ZCTA","COVID_CASE_COUNT")]
