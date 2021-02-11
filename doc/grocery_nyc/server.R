@@ -1,5 +1,3 @@
-library(shiny)
-library(tidyverse)
 
 source("global.R")
 
@@ -7,25 +5,9 @@ source("global.R")
 shinyServer(function(input, output) {
     output$value <- renderPrint({ input$num })
     
-    #store_name = retail_stores[retail_stores$Zip.Code == input$num,]
-    #name_output = data.frame(store_name)
-    #output$table <- renderTable(name_output)
-    #output$table <- renderTable({
-    #    print(store_name[1:5,])
-    #}
-    #)
-    
-    # e.g.
-    #category <- retail_stores$Zip.Code
-    #population <- c(3,8,4)
-    
-    #df <- data.frame(category,population)
-    curr_range = 2
-    output$zip = renderPrint({ as.numeric(input$`Zip Code`) })
-    
     df_subset <- reactive({
         # stores with input zip code
-        store_outputs = retail_stores[retail_stores$Zip.Code == input$`Zip Code`, c("County","Entity.Name","Location","Zip.Code")]
+        store_outputs = retail_stores[retail_stores$Zip.Code == input$`Zip Code`, c("Entity.Name","location","City","Zip.Code")]
         
         # stores within range
         curr_range = input$Range
@@ -33,7 +15,7 @@ shinyServer(function(input, output) {
         
         for (i in 1:length(curr_ranges)){
             if(curr_ranges[i] %in% unique_zip_codes){
-                curr_stores = retail_stores[retail_stores$Zip.Code == curr_ranges[i], c("County","Entity.Name","Location","Zip.Code")]
+                curr_stores = retail_stores[retail_stores$Zip.Code == curr_ranges[i], c("Entity.Name","location","City","Zip.Code")]
                 store_outputs = rbind(store_outputs, curr_stores)
             }
         }
@@ -57,6 +39,6 @@ shinyServer(function(input, output) {
     
     # map
     #output$nyc_map = renderLeaflet({
-        
+    
     #})
 })
