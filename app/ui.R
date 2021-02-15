@@ -32,26 +32,51 @@ dashboardPage(
             tabItem(tabName = "Home",
                     fluidPage(
                         
-                        fluidRow(
-                            width = 60,
-                            h1("THIS IS OUR HOME PAGE", align = "center")),
+                        # header image
+                        img(src = 'https://raw.githubusercontent.com/TZstatsADS/Spring2021-Project2-group2/master/app/www/header.png?token=ASOKTIRIASA5QBLBYDHGXVDAGQ52E', width = '100%'),
+                        
                         
                         # dashboard for current stats
                         fluidRow(
-                                h2("Current NYC Status", align = "left"),
-                                textOutput("timestamp")), br(),
+                            column(4,
+                                   fluidRow(
+                                       h2("Current NYC Status", align = "left"),
+                                       textOutput("timestamp")),
+                                   br(),
+                                   fluidRow(infoBoxOutput("NYCtotal", width = 12)),
+                                   fluidRow(infoBoxOutput("Boro", width = 12)),
+                                   fluidRow(infoBoxOutput("Zipcode", width = 12)),
+                                   fluidRow(infoBoxOutput("Boro_safe", width = 12)),
+                                   fluidRow(infoBoxOutput("Zipcode_safe", width = 12))),
                         
-                        fluidRow(infoBoxOutput("NYCtotal")),
-                        
-                        fluidRow(infoBoxOutput("Boro")),
-                        
-                        fluidRow(infoBoxOutput("Zipcode")),
-                        
-                        fluidRow(infoBoxOutput("Boro_safe")),
-                        
-                        fluidRow(infoBoxOutput("Zipcode_safe"))
-                    )),
-            
+                        # the introduction section    
+                            column(8,
+                                   box(width = '100%',
+                                       h1("Travel Safely for Your Grocery Today!", align = "center"),
+                                       br(),
+                                       tags$div(tags$ul("The American life has been dramatically changed by COVID-19 since 2020, with confirmed cases climbing from thousands to millions within a span of a few months.",
+                                                        "The state of New York has been the top 5 states with most COVID cases in America since the beginning of the pandemic, and ", span(strong("New York City")), 
+                                                        "has 5 times higher case counts than the rest of the state. Activities and restaurants are open and shut-down with changes in health guidelines, leaving only the essential businesses open.",
+                                                        br(),br(),
+                                                        "Shopping for grocery is one essential task for many New Yorkers, and how to get around safely to get your grocery has become a challenge during COVID.",
+                                                        "Living in the City of New York, we need to learn how to continue our daily routine while keeping ourselves and our community safe.",
+                                                        "As a result, we have created this webpage to help our fellow New Yorkers to receive up-to-date COVID information about the areas where they want to shop for grocery.",
+                                                        br(),br(),
+                                                        span(strong("If you ever have some of these similar ideas:")),
+                                                        br(),br(),
+                                                        tags$li("I enjoy picking out my own grocery."),
+                                                        tags$li("I like to have fresh food."),
+                                                        tags$li("I don't use app delivery for food."),
+                                                        tags$li("I don't like other people touching my food."),
+                                                        tags$li("I enjoy going to the store physically."),
+                                                        tags$li("I crave for food randomly and want to know what's available around my area."),
+                                                        tags$li("I just want to go out and walk around!!!"),
+                                                        "and many more...")),
+                                       h2(id ="smalltitle", "You have come to the right place!!!", align = "center"),
+                                       tags$style(HTML("#smalltitle{color:green; font-style: bold;}")),
+                                       div(img(src = "https://raw.githubusercontent.com/TZstatsADS/Spring2021-Project2-group2/master/app/www/footer.gif?token=ASOKTIWBNAS2SZ5NG7PKU6DAGQ57S", width = '70%'), style = "text-align: center;")
+                                       )))
+                    )),            
             
             #------------------------------NYC Map------------------------------------
             
