@@ -17,8 +17,10 @@ if (!require("shinydashboard")) {
   install.packages("shinydashboard")
   library(shinydashboard)
 }
-
-
+if (!require("leaflet")) {
+  install.packages("leaflet")
+  library(leaflet)
+}
 
 
 #---------------Load required data sets--------------------------------------
