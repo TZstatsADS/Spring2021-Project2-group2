@@ -66,17 +66,16 @@ shinyServer(function(input, output) {
 
     #-------------------- Map --------------------------
     
-    date_data_modzcta_slide <- reactive({
-      date_data_modzcta_slide <- date_data_modzcta[, input$slider]
-      date_data_modzcta_slide <- data.frame(date_data_modzcta_slide)
-      date_data_modzcta_slide <- cbind(data_modzcta_info, date_data_modzcta_slide)
-      date_data_modzcta_slide$X1 <- as.numeric(date_data_modzcta_slide$X1)
+    #-------------------- Map --------------------------
+    
+    sliderValues <- reactive({
+      data.frame(value = date_data_modzcta[, as.numeric(95-input$slider)])
     })
     
     output$myMap <- renderLeaflet({
       
       chosen_parameter <- if (input$checkbox == TRUE){
-        date_data_modzcta_slide$X1
+        as.numeric(sliderValues()$value)
       }
       else{
         if (input$type == "COVID Case Count") {

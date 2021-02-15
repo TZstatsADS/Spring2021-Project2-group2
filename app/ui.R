@@ -86,7 +86,7 @@ dashboardPage(
                                 checkboxInput("checkbox", label = "Check Recent Data?", value = FALSE),
                                 
                                 sliderInput(inputId = "slider", 
-                                            label = "Recent 2 Month Data",
+                                            label = "The data __ Days Ago",
                                             min = 0,
                                             max = 91,
                                             value = 0,
