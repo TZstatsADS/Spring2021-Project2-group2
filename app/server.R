@@ -64,7 +64,80 @@ shinyServer(function(input, output) {
         color = "green")
     })
 
-
+    #-------------------- Map --------------------------
+    
+    date_data_modzcta_slide <- reactive({
+      date_data_modzcta_slide <- date_data_modzcta[, input$slider]
+      date_data_modzcta_slide <- data.frame(date_data_modzcta_slide)
+      date_data_modzcta_slide <- cbind(data_modzcta_info, date_data_modzcta_slide)
+      date_data_modzcta_slide$X1 <- as.numeric(date_data_modzcta_slide$X1)
+    })
+    
+    output$myMap <- renderLeaflet({
+      
+      chosen_parameter <- if (input$checkbox == TRUE){
+        date_data_modzcta_slide$X1
+      }
+      else{
+        if (input$type == "COVID Case Count") {
+          US_zipcode$COVID_CASE_COUNT
+        } else if (input$type == "COVID Death Count") {
+          US_zipcode$COVID_DEATH_COUNT 
+        } else if (input$type == "Percentage of Positive COVID Tests") {
+          US_zipcode$PERCENT_POSITIVE
+        } else if (input$type == "Percentage of Positive Antibody Tests") {
+          US_zipcode$ANTIPERSCENT
+        } 
+      }
+      
+      pal <- colorNumeric(
+        palette = "YlOrRd",
+        domain = chosen_parameter)
+      
+      labels <-  paste0(
+        "Zip Code: ", US_zipcode$MODIFIED_ZCTA, "<br/>",
+        "Neighborhood: ", US_zipcode$NEIGHBORHOOD_NAME, "<br/>",
+        "Borough: ", US_zipcode$BOROUGH_GROUP, "<br/>",
+        "Population: ", floor(US_zipcode$POP_DENOMINATOR), "<br/>",
+        "COVID Case Count: ", US_zipcode$COVID_CASE_COUNT, "<br/>",
+        "COVID Death Count: ", US_zipcode$COVID_DEATH_COUNT, "<br/>",
+        "Percentage of Positive COVID Tests: ", US_zipcode$PERCENT_POSITIVE, "<br/>",
+        "Percentage of Positive Antibody Tests: ", US_zipcode$ANTIPERSCENT
+      ) %>%
+        
+        lapply(htmltools::HTML)
+      
+      US_zipcode %>%
+        leaflet %>% 
+        addProviderTiles("CartoDB.Positron") %>% 
+        
+        addPolygons(fillColor = ~pal(chosen_parameter),
+                    weight = 2,
+                    opacity = 1,
+                    color = "white",
+                    dashArray = "3",
+                    fillOpacity = 0.7,
+                    highlight = highlightOptions(weight = 2,
+                                                 color = "#666",
+                                                 dashArray = "",
+                                                 fillOpacity = 0.7,
+                                                 bringToFront = TRUE),
+                    label = labels) %>%
+        
+        addPolygons(data = US_zipcode[US_zipcode$GEOID10 == input$ZipCode, ], 
+                    color = "red", weight = 5, fill = FALSE) %>%
+        
+        # addMarkers(lng=US_zipcode[US_zipcode$GEOID10 == input$ZipCode, ]$geometry[0], lat=US_zipcode[US_zipcode$GEOID10 == input$ZipCode, ]$geometry[1] ,popup="New York") %>%
+        
+        addLegend(pal = pal, 
+                  values = ~chosen_parameter,
+                  opacity = 0.7, 
+                  title = htmltools::HTML(if (input$checkbox == TRUE){"Percentage of Positive Test Results"} else{input$type}),
+                  position = "bottomright")
+      
+    })
+    
+    
     
 #-------------------- Tab Neighborhood Analysis -----------------
     

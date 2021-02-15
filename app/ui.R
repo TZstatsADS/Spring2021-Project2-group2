@@ -57,11 +57,45 @@ dashboardPage(
             
             tabItem(tabName = "NYCMap",
                     fluidPage(
-                        
                         fluidRow(
-                            width = 60,
-                            h1("SHOWS OUR BEAUTIFUL MAP", align = "center"))
-                    )),
+                            width = 70,
+                            h1("Cases count in ZipCode", align = "center")),
+                        sidebarLayout(
+                            position = "right",
+                            sidebarPanel(
+                                h3("Locate the Zipcode area", align = "center"),
+                                textInput("ZipCode", label = h3("Zip Code:"), 
+                                          value = "Input Zip code, example: 10001"),
+                                
+                                helpText("Select the information you want to display on the NYC Map."),
+                                
+                                selectInput("type", 
+                                            label = "NYC COVID Information:",
+                                            choices = list("COVID Case Count" = "COVID Case Count",
+                                                           "COVID Death Count" = "COVID Death Count", 
+                                                           "Percentage of Positive COVID Tests" = "Percentage of Positive COVID Tests", 
+                                                           "Percentage of Positive Antibody Tests" = "Percentage of Positive Antibody Tests"), 
+                                            selected = "COVID Case Count"), 
+                                
+                                helpText("", br(), 
+                                         "Slide the bar below to check the most recent 2 months data.", br(),
+                                         "The data shows the percentage of people tested who tested positive in the 7 days.", br(),
+                                         "Time period: Nov 13st, 2020 to Feb 11th, 2021", br(), 
+                                         "", br()), 
+                                
+                                checkboxInput("checkbox", label = "Check Recent Data?", value = FALSE),
+                                
+                                sliderInput(inputId = "slider", 
+                                            label = "Recent 2 Month Data",
+                                            min = 0,
+                                            max = 91,
+                                            value = 0,
+                                            step = 1)
+                            ), 
+                            mainPanel(leafletOutput("myMap", height = 800))
+                        )
+                    )
+            ),
             
             
             #------------------------------Grocery Map------------------------------------

@@ -17,9 +17,72 @@ if (!require("shinydashboard")) {
   install.packages("shinydashboard")
   library(shinydashboard)
 }
+if (!require("tibble")) {
+  install.packages("tibble")
+  library(tibble)
+}
+if (!require("tidyverse")) {
+  install.packages("tidyverse")
+  library(tidyverse)
+}
+if (!require("shinythemes")) {
+  install.packages("shinythemes")
+  library(shinythemes)
+}
+
+if (!require("sf")) {
+  install.packages("sf")
+  library(sf)
+}
+if (!require("RCurl")) {
+  install.packages("RCurl")
+  library(RCurl)
+}
+if (!require("tmap")) {
+  install.packages("tmap")
+  library(tmap)
+}
+if (!require("rgdal")) {
+  install.packages("rgdal")
+  library(rgdal)
+}
 if (!require("leaflet")) {
   install.packages("leaflet")
   library(leaflet)
+}
+if (!require("ggplot2")) {
+  install.packages("ggplot2")
+  library(ggplot2)
+}
+if (!require("viridis")) {
+  install.packages("viridis")
+  library(viridis)
+}
+if (!require("shinydashboard")) {
+  install.packages("shinydashboard")
+  library(shinydashboard)
+}
+if (!require("readr")) {
+  install.packages("readr")
+  library(readr)
+}
+if (!require("leaflet")) {
+  install.packages("leaflet")
+  library(leaflet)
+}
+
+if (!require("tigris")) {
+  install.packages("tigris")
+  library(tigris)
+}
+if (!require("emojifont")) {
+  install.packages("emojifont")
+  library(emojifont)
+}
+
+if (!require("shinyWidgets")) {
+  install.packages("shinyWidgets")
+  library(shinyWidgets)
 }
 
 
@@ -30,6 +93,8 @@ nyc_total <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-d
 
 # case count by zip code and boro
 data_by_modzcta<- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/totals/data-by-modzcta.csv")
+antibody_by_modzcta <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/totals/antibody-by-modzcta.csv")
+date_data_by_modzcta <- read.csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/latest/pp-by-modzcta.csv")
 
 # summarize case count by boro
 data_by_boro <- data_by_modzcta %>% group_by(BOROUGH_GROUP) %>% summarise(CASE_COUNT = sum(COVID_CASE_COUNT))
@@ -46,5 +111,7 @@ data_by_date <- read.csv("https://raw.githubusercontent.com/nychealth/coronaviru
 data_by_date <- data_by_date %>% select(date_of_interest, CASE_COUNT, BX_CASE_COUNT, BK_CASE_COUNT, MN_CASE_COUNT, QN_CASE_COUNT, SI_CASE_COUNT) %>%
   rename("Brooklyn" = "BK_CASE_COUNT", "Bronx" = "BX_CASE_COUNT", "Manhattan" = "MN_CASE_COUNT" , "Queens" = "QN_CASE_COUNT", "Staten Island" = "SI_CASE_COUNT")
 data_by_date$date_of_interest <- as.Date(data_by_date$date_of_interest, format = "%m/%d/%Y")
+
+load('./output/US_zipcode.RData')
 
 
