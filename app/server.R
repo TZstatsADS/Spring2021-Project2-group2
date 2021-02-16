@@ -65,9 +65,6 @@ shinyServer(function(input, output) {
     })
 
     #-------------------- Grocery Map --------------------------
-    output$store_display = renderText({ "Best Stores within Selected Range" })
-    output$safest = renderText({ "Stores with Lowest Cases" })
-    
     df_subset <- reactive({
       # stores with input zip code
       store_outputs = nyc_only[nyc_only$Zip.Code == input$`Zip Code`,c("Entity.Name","location","neighborhood","Zip.Code","case_counts")]
@@ -80,17 +77,24 @@ shinyServer(function(input, output) {
         }
       }
       best.zip = store_outputs[which.min(store_outputs$case_counts),"Zip.Code"]
+      
       # select zip code that has the lowest number of cases
       store_outputs2 = store_outputs %>%
         filter(Zip.Code == best.zip)
-      colnames(store_outputs2) = c("Entity Name","Address","Neighbourhood","Zip Code","Case Counts")
+      colnames(store_outputs2) = c("Store Name","Address","Neighborhood","Zip Code","Case Counts")
       return(store_outputs2)
     })
     
+    zip_ranges = reactive({ 
+      zip_codes = seq(as.numeric(input$`Zip Code`) - input$Range, as.numeric(input$`Zip Code`) + input$Range,1) 
+      zip_codes[zip_codes %in% nyc_zip_codes]
+    })
+    output$ranges_display = renderPrint({ zip_ranges() })
+    
     output$table1 = DT::renderDataTable(DT::datatable({ df_subset() }))
-    output$table2 = DT::renderDataTable(DT::datatable({ 
-      nyc_only[nyc_only$case_counts == min(nyc_only$case_counts),c("Entity.Name","location","neighborhood","Zip.Code","case_counts")] 
-    }))
+    curr_best = nyc_only[nyc_only$case_counts == min(nyc_only$case_counts),c("Entity.Name","location","neighborhood","Zip.Code","case_counts")] 
+    colnames(curr_best) = c("Store Name","Address","Neighborhood","Zip Code","Case Counts")
+    output$table2 = DT::renderDataTable(DT::datatable({ curr_best }))
     
     dd = nyc_only %>%
       group_by(borough) %>%
@@ -115,7 +119,7 @@ shinyServer(function(input, output) {
         addMarkers(~longitude, ~latitude, clusterOptions = markerClusterOptions(), popup = popup_features)
     })
     
-    #-------------------- Map --------------------------
+    #-------------------- NYC Map --------------------------
     
     sliderValues <- reactive({
       data.frame(value = date_data_modzcta[, as.numeric(95-input$slider)])

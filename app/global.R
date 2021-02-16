@@ -199,5 +199,5 @@ shooting <- read.csv("../data/NYPD_Shooting.csv", header=TRUE, stringsAsFactors=
 
 
 #case count, testing rate, and death information by age
-ana_age<-read.csv("../output/age_ana/ana_age.csv")
-ana_death<-read.csv("../output/age_ana/ana_death.csv")
+ana_age<-read.csv("output/age_ana/ana_age.csv")
+ana_death<-read.csv("output/age_ana/ana_death.csv")

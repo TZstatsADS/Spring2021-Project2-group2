@@ -137,14 +137,28 @@ dashboardPage(
                             column(4,
                                    wellPanel(
                                        helpText("Select the range for zip code:"),
-                                       sliderInput("Range", label = h3("Range"), min = 0, max = 10, value = 0)
+                                       sliderInput("Range", label = h3("Range"), min = 0, max = 10, value = 0),
+                                       hr(),
+                                       p("Current List of Zip Codes:", style = "color:#888888;"), 
+                                       verbatimTextOutput("ranges_display")
+                                       
                                    )),
                             column(4,
                                    helpText("Select the zip code of your interest:"),
-                                   selectInput("Zip Code", "Choose Zip Code", choices=nyc_only$Zip.Code))
+                                   selectInput("Zip Code", "Choose Zip Code", choices=nyc_only$Zip.Code)),
+                            column(4,
+                                   helpText("", br(),
+                                            strong("Choose a zip code and range of your interest to search for safe stores to get your grocery."),
+                                            hr(),
+                                            "Example:", br(), "A zip code of 10002 and a range of 1 would search for stores in zip codes 10001, 10002, and 10003, the current stores with lowest case counts will be displayed in the following table.",
+                                            hr(),
+                                            "Note:", br(), "Only the current safest stores in NYC will be displayed.",
+                                            "", br()))
                         ),
+                        br(),
+                        br(),
                         #table
-                        textOutput("store_display"),
+                        h2("Best Stores within Selected Range"),
                         DT::dataTableOutput("table1"), 
                         
                         # suppress error message
@@ -155,12 +169,15 @@ dashboardPage(
                         # map
                         mainPanel(leafletOutput("grocery_map", height = 600), width = 12)
                     )),
+            
             tabItem(tabName = "Summary",
                     fluidPage(
                         plotOutput("hist"),
-                        textOutput("safest"),
+                        br(),
+                        br(),
+                        h2("Stores with Lowest Cases", align = "center"),
                         DT::dataTableOutput("table2")
-                    )),       
+                    )),         
             #------------------------------Safety Map------------------------------------
             
             tabItem(tabName = "SafetyMap",
