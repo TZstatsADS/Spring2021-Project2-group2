@@ -20,7 +20,7 @@ The **learning goals** for this project is:
 ## Project Title Lorem ipsum dolor sit amet
 Term: Spring 2021
 
-+ Team: Group 2 #
++ Team: Group 2
 + **Projec title**: 
         + Pin-Chun Chen
 	+ Zi Fang
