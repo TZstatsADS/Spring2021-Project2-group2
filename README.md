@@ -2,8 +2,6 @@
 
 ### [Project Description](doc/project2_desc.md)
 
-![screenshot](doc/figs/map.jpg)
-
 In this second project of GR5243 Applied Data Science, we develop a *Exploratory Data Analysis and Visualization* shiny app on a topic of your choice using [JHU CSSE Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) or NYC Health open data released on the [NYC Coronavirus Disease 2019 Data](https://github.com/nychealth/coronavirus-data) website. See [Project 2 Description](doc/project2_desc.md) for more details.  
 
 The **learning goals** for this project is:
@@ -17,11 +15,11 @@ The **learning goals** for this project is:
 
 *The above general statement about project 2 can be removed once you are finished with your project. It is optional.
 
-## Project Title Lorem ipsum dolor sit amet
+## NYC Grocery Shopping Under COVID-19 
 Term: Spring 2021
 
 + Team: Group 2
-+ **Projec title**: NYC COVID-19 convinence map         
++ **NYC Grocery Shopping Under COVID-19**:          
 	+ Pin-Chun Chen
 	+ Zi Fang
 	+ Catherine Gao
