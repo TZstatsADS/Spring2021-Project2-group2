@@ -19,7 +19,7 @@ The **learning goals** for this project is:
 Term: Spring 2021
 
 + Team: Group 2
-+ **Team Members**:          
++ Team Members:          
 	+ Pin-Chun Chen
 	+ Zi Fang
 	+ Catherine Gao
