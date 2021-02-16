@@ -191,13 +191,15 @@ nyc_zip_codes = unique(nyc_only$Zip.Code)
 
 
 shooting <- read.csv("../data/NYPD_Shooting.csv", header=TRUE, stringsAsFactors=FALSE)
-#reference 
-#http://rstudio-pubs-static.s3.amazonaws.com/133599_c0d5471268584d47b53298f0ad27e8d3.html#loading-data
-#https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8
-#https://plotly.com/r/pie-charts/
-
 
 
 #case count, testing rate, and death information by age
 ana_age<-read.csv("./output/age_ana/ana_age.csv")
 ana_death<-read.csv("./output/age_ana/ana_death.csv")
+
+#reference 
+#http://rstudio-pubs-static.s3.amazonaws.com/133599_c0d5471268584d47b53298f0ad27e8d3.html#loading-data
+#https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8
+#https://plotly.com/r/pie-charts/
+
+#https://rstudio.github.io/leaflet/markers.html
