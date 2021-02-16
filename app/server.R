@@ -266,5 +266,49 @@ shinyServer(function(input, output) {
       yaxis = list(title = "Case Count", showgrid = FALSE))
     
     output$time_series_plot <- renderPlotly({ggplotly(fig1)})
+    
+    
+    
+#-------------------- Age Group Analysis -----------------  
+    
+    #construct a pie chart to show death count and hospitalized count distribution by age
+    d_pie <- plot_ly()
+    d_pie<-d_pie %>% add_pie(data = ana_death , labels = ~ AGE_GROUP, values = ~DEATH_COUNT,
+                             name = "Death count",title = "Death count by age",domain = list(row = 0, column = 0))
+    d_pie<-d_pie %>% add_pie(data = ana_death , labels = ~ AGE_GROUP, values = ~HOSPITALIZED_COUNT,
+                             name = "Hospitalized count",title = "Hospitalized count by age",domain = list(row = 0, column = 1))
+    d_pie<-d_pie %>% add_pie(data = ana_death , labels = ~ AGE_GROUP, values = ~CASE_COUNT,
+                             name = "Case count",title = "Case count by age",domain = list(row = 0, column = 2))
+    d_pie<-d_pie %>% layout(title = "Severe illness counts in NYC", showlegend = T, grid = list(rows=1, columns=3),
+                            paper_bgcolor="transparent",
+                            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+    output$count<- renderPlotly({ggplotly(d_pie)})
+    
+    
+    #construct a bar plot to show case rate by age
+    crate <- plot_ly(ana_death, x = ~AGE_GROUP, y = ~CASE_RATE, type = 'bar', name = 'Case rate')
+    crate<-crate %>% add_trace(ana_death, x = ~AGE_GROUP, y = ~CASE_RATE, type='scatter',mode='lines',color='blue')
+    output$case_rate<- renderPlotly({ggplotly(crate)})
+    
+    #construct a bar plot to show test rate by age
+    trate <- plot_ly(ana_death, x = ~AGE_GROUP, y = ~TEST_RATE, type = 'bar', name = 'Test rate')
+    trate<-trate %>% add_trace(ana_death, x = ~AGE_GROUP, y = ~TEST_RATE, type='scatter',mode='lines',color='blue')
+    output$test_rate<- renderPlotly({ggplotly(trate)})
+    
+    #construct a bar plot to show hospitalized rate by age
+    hrate <- plot_ly(ana_death, x = ~AGE_GROUP, y = ~HOSPITALIZED_RATE,color="orange", type = 'bar', name = 'Hospitalized rate')
+    hrate<-hrate %>% add_trace(ana_death, x = ~AGE_GROUP, y = ~HOSPITALIZED_RATE, type='scatter',mode='lines',color='blue')
+    output$hos_rate<- renderPlotly({ggplotly(hrate)})
+    
+    #construct a bar plot to show death rate by age
+    drate <- plot_ly(ana_death, x = ~AGE_GROUP, y = ~DEATH_RATE, type = 'bar', name = 'Death rate')
+    drate<-drate %>% add_trace(ana_death, x = ~AGE_GROUP, y = ~DEATH_RATE, type='scatter',mode='lines',color='blue')
+    output$death_rate<- renderPlotly({ggplotly(drate)})
+    
+    #construct a bar plot to show positive rate by age
+    prate <- plot_ly(ana_death, x = ~AGE_GROUP, y = ~POS_RATE,color="orange", type = 'bar', name = 'Positive rate')
+    prate<-prate %>% add_trace(ana_death, x = ~AGE_GROUP, y = ~POS_RATE, type='scatter',mode='lines',color='blue')
+    output$pos_rate<- renderPlotly({ggplotly(prate)})    
 
 }) # closing the entire code block

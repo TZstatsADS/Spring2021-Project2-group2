@@ -22,8 +22,8 @@ dashboardPage(
                  menuSubItem("Summary", tabName = "Summary", icon = icon("fas fa-shopping-cart"))),
         menuItem("Safety Map", tabName = "SafetyMap", icon = icon("fas fa-globe")),
         menuItem("Neighborhood Analysis", tabName = "Neighborhood", icon = icon("fas fa-users")),
-        menuItem("Analysis", tabName = "Analysis", icon = icon("fas fa-chart-bar")),
-        menuItem("Conclusion", tabName = "Conclusion", icon = icon("far fa-address-card"))
+        menuItem("Age Group Analysis", tabName = "Age", icon = icon("fas fa-chart-bar")),
+        menuItem("About", tabName = "About", icon = icon("fas fa-asterisk"))
     )),
     
     dashboardBody(
@@ -203,25 +203,124 @@ dashboardPage(
             
             
             
-            #------------------------------------More Analysis------------------------------------
+            #------------------------------------Age Group Analysis------------------------------------
             
-            tabItem(tabName = "Analysis",
+            tabItem(tabName = "Age",
                     fluidPage(
                         
+                        #title
                         fluidRow(
                             width = 60,
-                            h1("MORE ANALYSIS GOES HERE", align = "center"))
-                    )),            
+                            h1("What can we see from the age distribution of COVID-19?")),
+                        
+                        #The distribution of death by age
+                        
+                        fluidRow(plotlyOutput("count")),
+                        fluidRow(
+                            width = 60,
+                            h2("Compared with the counts, would the rates give us a different tendency?")),
+                        #Show the comparison of the rates
+                        fluidRow(
+                            tabBox(
+                                # Title can include an icon
+                                title = tagList("COVID-19 Illness Rate by Disease Severity"),
+                                tabPanel("Case Rate",
+                                         plotlyOutput("case_rate")
+                                ),
+                                tabPanel("Hospitalized Rate",plotlyOutput("hos_rate")),
+                                tabPanel("Death Rate",plotlyOutput("death_rate"))
+                                
+                            )),
+                        fluidRow(
+                            width = 60,
+                            h2("Results from the two groups of plots:")
+                        ),                              
+                        fluidRow(
+                            width = 60,
+                            h3("Both the count and the rate suggest the old people are not easier to get COVID-19 compared with younger groups, but is this result totally reasonable?")),
+                        fluidRow(
+                            width = 60,
+                            h3("")),
+                        fluidRow(
+                            width = 60,
+                            h3("")),
+                        fluidRow(
+                            width = 60,
+                            h2("Assumption: The survivor bias caused by the passive test policy can effect the data NYC collected")),
+                        fluidRow(
+                            width = 60,
+                            h3("Old people and kids should have a lower test rate as it can be harder for them to go to the test spots")),  
+                        fluidRow(plotlyOutput("test_rate")),
+                        fluidRow(
+                            width = 60,
+                            h3(" ")),  
+                        fluidRow(
+                            width = 60,
+                            h3("Besides, if the survivor bias exists, old people should have a lower positive rate because they're easier to get severe illness")), 
+                        fluidRow(plotlyOutput("pos_rate"))
+                    )),        
            
             
-             #-------------------------------------Conclusion Page---------------------------------
-            tabItem(tabName = "Conclusion",
-                    fluidPage(
+             #-------------------------------------Reference Page---------------------------------
+            tabItem(tabName = "About", 
+                    HTML(
+                        "<h2> Data Source : </h2>
+                              <h4><li>NYC COVID-19 Data : <a href='https://github.com/nychealth/coronavirus-data' target='_blank'>Github NYC Health</a></li></h4>
+                              <h4><li>NYC Shooting Data : <a href='https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8' target='_blank'>NYC Public Safety</a></li></h4>
+                              <h4><li>NYC Retail Food Stores Data : <a href='https://catalog.data.gov/dataset/retail-food-stores' target='_blank'>State of NY government</a></li></h4>
+                              <h4><li>NYC Farmers Market Data : <a href='https://catalog.data.gov/dataset/farmers-markets-in-new-york-state' target='_blank'>State of NY government</a></li></h4>"
                         
-                        fluidRow(
-                            width = 60,
-                            h1("CREDITS, DISCLAIMERS, AND MORE!", align = "center"))
-                    ))
+                    ),
+                    
+                    titlePanel("Disclaimers : "),
+                    HTML(
+                        "<b>NYC COVID-19 Data: </b> <br>
+                              <li>This repository contains data on Coronavirus Disease 2019 (COVID-19) in New York City (NYC).  </li>
+                              <li>The Health Department classifies the start of the COVID-19 outbreak in NYC as the date of the first laboratory-confirmed case, February 29, 2020. </li>
+                              " 
+                    ),
+                    
+                    HTML(
+                        "<b>NYC Shooting Data : </b> <br>
+                              <li>List of every shooting incident that occurred in NYC during the current calendar year.</li>"
+                    ),
+                    
+                    HTML(
+                        "<b>NYC Retail Food Stores Data : </b> <br>
+                              <li>A listing of all retail food stores which are licensed by the Department of Agriculture and Markets. </li>"
+                    ),
+                    
+                    HTML(
+                        "<b>NYC Hospital Data : </b> <br>
+                              <li>The data only contains facilities from the NYC Health + Hospitals health care system. </li>
+                              <li>The data was updated on July 3, 2019, so some information may have changed. </li>"
+                    ),
+                    
+                    HTML(
+                        "<b>NYC Farmers Market Data : </b> <br>
+                              <li> In the past decade the number of farmers' markets in New York State has grown at a rapid rate. </li>
+                              <li> The dataset contains information detailing the time and location of community farmers' markets as well as the name and phone number of the market manager.</li>"
+                    ),
+                    
+                    titlePanel("Credits : "),
+                    HTML(
+                        " <p>Our app was built using RShiny.</p>",
+                        "<p>The following R packages were used in to build this RShiny application:</p>
+                                <p>
+                                <code>RCurl</code><code>dplyr</code><code>tibble</code>
+                                <code>leaflet</code><code>tidyverse</code><code>shinythemes</code>
+                                <code>tmap</code><code>plotly</code><code>ggplot2</code>
+                                <code>tigris</code><code>shiny</code><code>shinydashboard</code><code>sf</code><code>shinyWidgets</code>
+                                <code>tidyr</code><code>emojifont</code><code>viridis</code><code>readr</code><code>rgdal</code>
+                                </p>
+                                <p>This website is the result of 2021Spring GR5243 Project2 Group2, Class of 2021 of the M.A. Statistics program at Columbia University.</p>",
+                        " <p>Chen,Pin-Chun     |email: pc2939@columbia.edu </p>",
+                        " <p>Fang,Zi           |email: zf2258@columbia.edu </p>",
+                        " <p>Gao,Catherine     |email: catherine.gao@columbia.edu </p>",
+                        " <p>Sang,Siyuan       |email: ss6165@columbia.edu </p>",
+                        " <p>Wu,Yingyao        |email: yw3659@columbia.edu </p>"
+                    )
+            )
     )))
 
 
