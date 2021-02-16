@@ -64,7 +64,56 @@ shinyServer(function(input, output) {
         color = "green")
     })
 
-    #-------------------- Map --------------------------
+    #-------------------- Grocery Map --------------------------
+    output$store_display = renderText({ "Best Stores within Selected Range" })
+    output$safest = renderText({ "Stores with Lowest Cases" })
+    
+    df_subset <- reactive({
+      # stores with input zip code
+      store_outputs = nyc_only[nyc_only$Zip.Code == input$`Zip Code`,c("Entity.Name","location","neighborhood","Zip.Code","case_counts")]
+      # stores within range
+      curr_ranges = seq(as.numeric(input$`Zip Code`) - input$Range, as.numeric(input$`Zip Code`) + input$Range,1)
+      for (i in 1:length(curr_ranges)){
+        if(curr_ranges[i] %in% nyc_zip_codes){
+          curr_stores = nyc_only[nyc_only$Zip.Code == curr_ranges[i],c("Entity.Name","location","neighborhood","Zip.Code","case_counts")]
+          store_outputs = rbind(store_outputs, curr_stores)
+        }
+      }
+      best.zip = store_outputs[which.min(store_outputs$case_counts),"Zip.Code"]
+      # select zip code that has the lowest number of cases
+      store_outputs2 = store_outputs %>%
+        filter(Zip.Code == best.zip)
+      colnames(store_outputs2) = c("Entity Name","Address","Neighbourhood","Zip Code","Case Counts")
+      return(store_outputs2)
+    })
+    
+    output$table1 = DT::renderDataTable(DT::datatable({ df_subset() }))
+    output$table2 = DT::renderDataTable(DT::datatable({ 
+      nyc_only[nyc_only$case_counts == min(nyc_only$case_counts),c("Entity.Name","location","neighborhood","Zip.Code","case_counts")] 
+    }))
+    
+    dd = nyc_only %>%
+      group_by(borough) %>%
+      summarise(count=n())
+    # histogram
+    output$hist = renderPlot({
+      ggplot(dd, aes(x=borough, y=count)) +
+        geom_col(color = 'orange', fill = 'orange') +
+        geom_text(aes(label=count), vjust=-0.5, size=3.5) +
+        labs(title = "Grocery Stores by Borough", y = "Number of Stores", x = "Borough")  +
+        theme_grey(16)
+    })
+    
+    # map
+    output$grocery_map = renderLeaflet({
+      popup_features = paste('Store Name:', nyc_only$Entity.Name, '</br>',
+                             'Neighborhood:',nyc_only$neighborhood, '</br>',
+                             'Current Confirmed Cases:',nyc_only$case_counts,'</br>')
+      
+      leaflet(nyc_only) %>% 
+        addProviderTiles(providers$CartoDB.Positron) %>% 
+        addMarkers(~longitude, ~latitude, clusterOptions = markerClusterOptions(), popup = popup_features)
+    })
     
     #-------------------- Map --------------------------
     

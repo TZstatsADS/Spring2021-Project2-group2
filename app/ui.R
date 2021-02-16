@@ -127,10 +127,28 @@ dashboardPage(
             
             tabItem(tabName = "GroceryMap",
                     fluidPage(
-                        
+                        titlePanel("Grocery Stores in NYC"),
                         fluidRow(
-                            width = 60,
-                            h1("SHOWS OUR BEAUTIFUL MAP", align = "center"))
+                            column(4,
+                                   wellPanel(
+                                       helpText("Select the range for zip code:"),
+                                       sliderInput("Range", label = h3("Range"), min = 0, max = 10, value = 0)
+                                   )),
+                            column(4,
+                                   helpText("Select the zip code of your interest:"),
+                                   selectInput("Zip Code", "Choose Zip Code", choices=nyc_only$Zip.Code))
+                        ),
+                        #table
+                        textOutput("store_display"),
+                        DT::dataTableOutput("table1"), 
+                        
+                        # suppress error message
+                        tags$style(type="text/css",
+                                   ".shiny-output-error { visibility: hidden; }",
+                                   ".shiny-output-error:before { visibility: hidden; }"
+                        ),
+                        # map
+                        mainPanel(leafletOutput("grocery_map", height = 600), width = 12)
                     )),           
             
             
