@@ -115,8 +115,8 @@ load('./output/US_zipcode.RData')
 
 ##### grocery map and table
 covid = read_csv("https://raw.githubusercontent.com/nychealth/coronavirus-data/master/totals//data-by-modzcta.csv")
-retail_stores = read.csv("../output/Retail_Food_Stores.csv")
-farmers_market = read.csv("../output/Farmers__Markets_in_New_York_State.csv")
+retail_stores = read.csv("../data/Retail_Food_Stores.csv")
+farmers_market = read.csv("../data/Farmers__Markets_in_New_York_State.csv")
 
 farmers_market_sub = farmers_market[,c("Market.Name","Address.Line.1","City","Zip","Longitude","Latitude")]
 farmers_market_sub$location = paste(farmers_market_sub$Address.Line.1,farmers_market_sub$City)
@@ -199,5 +199,5 @@ shooting <- read.csv("../data/NYPD_Shooting.csv", header=TRUE, stringsAsFactors=
 
 
 #case count, testing rate, and death information by age
-ana_age<-read.csv("output/age_ana/ana_age.csv")
-ana_death<-read.csv("output/age_ana/ana_death.csv")
+ana_age<-read.csv("./output/age_ana/ana_age.csv")
+ana_death<-read.csv("./output/age_ana/ana_death.csv")

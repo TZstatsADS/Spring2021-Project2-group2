@@ -18,8 +18,8 @@ dashboardPage(
         menuItem("Home", tabName = "Home", icon = icon("home")),
         menuItem("NYC Map", tabName = "NYCMap", icon = icon("fas fa-globe-americas")),
         menuItem("Grocery Stores", tabName = "GroceryStores", icon = icon("fas fa-shopping-cart"),
-                 menuSubItem("Grocery Map", tabName = "GroceryMap", icon = icon("fas fa-shopping-cart")),
-                 menuSubItem("Summary", tabName = "Summary", icon = icon("fas fa-shopping-cart"))),
+                 menuSubItem("Grocery Stores Search Tool", tabName = "GroceryMap", icon = icon("fas fa-search")),
+                 menuSubItem("Summary", tabName = "Summary", icon = icon("fas fa-chart-area"))),
         menuItem("Safety Map", tabName = "SafetyMap", icon = icon("fas fa-globe")),
         menuItem("Neighborhood Analysis", tabName = "Neighborhood", icon = icon("fas fa-users")),
         menuItem("Age Group Analysis", tabName = "Age", icon = icon("fas fa-chart-bar")),
@@ -188,7 +188,7 @@ dashboardPage(
                             h1("NYC Shooting Statistics", align = "center")),
                         
                         mainPanel(leafletOutput("safetymap", height=600),
-                                  
+                        br(),
                         plotlyOutput("pie"), width=12)
                     )),         
             
