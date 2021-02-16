@@ -21,8 +21,8 @@ The **learning goals** for this project is:
 Term: Spring 2021
 
 + Team: Group 2
-+ **Projec title**: NYC COVID-19 convinence map 
-        + Pin-Chun Chen
++ **Projec title**: NYC COVID-19 convinence map         
+	+ Pin-Chun Chen
 	+ Zi Fang
 	+ Catherine Gao
 	+ Siyuan Sang
