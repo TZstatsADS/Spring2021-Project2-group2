@@ -20,6 +20,7 @@ dashboardPage(
         menuItem("Grocery Stores", tabName = "GroceryStores", icon = icon("fas fa-shopping-cart"),
                  menuSubItem("Grocery Map", tabName = "GroceryMap", icon = icon("fas fa-shopping-cart")),
                  menuSubItem("Summary", tabName = "Summary", icon = icon("fas fa-shopping-cart"))),
+        menuItem("Safety Map", tabName = "SafetyMap", icon = icon("fas fa-globe")),
         menuItem("Neighborhood Analysis", tabName = "Neighborhood", icon = icon("fas fa-users")),
         menuItem("Analysis", tabName = "Analysis", icon = icon("fas fa-chart-bar")),
         menuItem("Conclusion", tabName = "Conclusion", icon = icon("far fa-address-card"))
@@ -86,7 +87,7 @@ dashboardPage(
                     fluidPage(
                         fluidRow(
                             width = 70,
-                            h1("Cases count in ZipCode", align = "center")),
+                            h1("Cases Count in ZipCode", align = "center")),
                         sidebarLayout(
                             position = "right",
                             sidebarPanel(
@@ -129,7 +130,9 @@ dashboardPage(
             
             tabItem(tabName = "GroceryMap",
                     fluidPage(
-                        titlePanel("Grocery Stores in NYC"),
+                        fluidRow(
+                            width = 60,
+                            h1("Grocery Stores in NYC", align = "center")),
                         fluidRow(
                             column(4,
                                    wellPanel(
@@ -157,8 +160,20 @@ dashboardPage(
                         plotOutput("hist"),
                         textOutput("safest"),
                         DT::dataTableOutput("table2")
-                    )),           
+                    )),       
+            #------------------------------Safety Map------------------------------------
             
+            tabItem(tabName = "SafetyMap",
+                    fluidPage(
+                        
+                        fluidRow(
+                            width = 60,
+                            h1("NYC Shooting Statistics", align = "center")),
+                        
+                        mainPanel(leafletOutput("safetymap", height=600),
+                                  
+                        plotlyOutput("pie"), width=12)
+                    )),         
             
             #----------------------------Neighborhood Analysis------------------------------------
             

@@ -188,3 +188,10 @@ for (i in 1:length(covid_zip_codes)){
 }
 nyc_only$case_counts = as.integer(nyc_only$case_counts)
 nyc_zip_codes = unique(nyc_only$Zip.Code)
+
+
+shooting <- read.csv("../data/NYPD_Shooting.csv", header=TRUE, stringsAsFactors=FALSE)
+#reference 
+#http://rstudio-pubs-static.s3.amazonaws.com/133599_c0d5471268584d47b53298f0ad27e8d3.html#loading-data
+#https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Year-To-Date-/5ucz-vwe8
+#https://plotly.com/r/pie-charts/

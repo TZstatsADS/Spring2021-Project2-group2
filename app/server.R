@@ -185,6 +185,58 @@ shinyServer(function(input, output) {
       
     })
     
+   #-------------------- NYC Safety Map -----------------
+    
+    
+    output$safetymap <- renderLeaflet({
+      leaflet(shooting) %>%
+        setView(lng = -73.98928, lat = 40.75042, zoom = 10) %>%
+        addProviderTiles("CartoDB.Positron", options = providerTileOptions(noWrap = TRUE)) %>%
+        addCircleMarkers(
+          lng=~Longitude, 
+          lat=~Latitude,
+          radius=4,
+          stroke=FALSE, 
+          fillOpacity=0.5, 
+          col="red"
+        )
+    })
+    
+    output$pie <- renderPlotly({
+      shooting <- read.csv("../data/NYPD_Shooting.csv", header=TRUE, stringsAsFactors=FALSE)
+      shooting2 <- shooting[,c("BORO", "Longitude","Latitude")]
+      shooting2$BORO <- as.factor(shooting2$BORO)
+      
+      
+      shooting_BORO <- shooting2 %>%
+        group_by(BORO) %>%
+        summarise(count=n())
+      
+      shooting_BORO[,1:2]
+      count <- as.vector(shooting_BORO[,2])
+      count <- as.vector(unlist(count))
+      
+      
+      colors <- c('rgb(211,94,96)', 'rgb(128,133,133)', 'rgb(144,103,167)', 'rgb(171,104,87)', 'rgb(114,147,203)')
+      BORO <- c("BRONX","BROOKLYN","MANHATTAN","QUEENS","STATEN ISLAND")
+      pie <- plot_ly(shooting_BORO, labels = BORO, values = count, type = 'pie',
+                     textposition = 'inside',
+                     textinfo = 'label+percent',
+                     insidetextfont = list(color = '#FFFFFF'),
+                     hoverinfo = 'text',
+                     text = ~paste(count, ' cases'),
+                     marker = list(colors = colors,
+                                   line = list(color = '#FFFFFF', width = 1)),
+                     showlegend = FALSE)
+      
+      
+      pie <- pie %>% layout(title = 'NYC Shooting Cases by Boroughs',
+                            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+                            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
+      pie
+    })
+    
+    
     
     
 #-------------------- Tab Neighborhood Analysis -----------------
