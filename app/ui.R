@@ -17,7 +17,9 @@ dashboardPage(
     dashboardSidebar(sidebarMenu(
         menuItem("Home", tabName = "Home", icon = icon("home")),
         menuItem("NYC Map", tabName = "NYCMap", icon = icon("fas fa-globe-americas")),
-        menuItem("Grocery Map", tabName = "GroceryMap", icon = icon("fas fa-shopping-cart")),
+        menuItem("Grocery Stores", tabName = "GroceryStores", icon = icon("fas fa-shopping-cart"),
+                 menuSubItem("Grocery Map", tabName = "GroceryMap", icon = icon("fas fa-shopping-cart")),
+                 menuSubItem("Summary", tabName = "Summary", icon = icon("fas fa-shopping-cart"))),
         menuItem("Neighborhood Analysis", tabName = "Neighborhood", icon = icon("fas fa-users")),
         menuItem("Analysis", tabName = "Analysis", icon = icon("fas fa-chart-bar")),
         menuItem("Conclusion", tabName = "Conclusion", icon = icon("far fa-address-card"))
@@ -149,6 +151,12 @@ dashboardPage(
                         ),
                         # map
                         mainPanel(leafletOutput("grocery_map", height = 600), width = 12)
+                    )),
+            tabItem(tabName = "Summary",
+                    fluidPage(
+                        plotOutput("hist"),
+                        textOutput("safest"),
+                        DT::dataTableOutput("table2")
                     )),           
             
             
