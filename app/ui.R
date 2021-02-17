@@ -308,12 +308,6 @@ dashboardPage(
                     ),
                     
                     HTML(
-                        "<b>NYC Hospital Data : </b> <br>
-                              <li>The data only contains facilities from the NYC Health + Hospitals health care system. </li>
-                              <li>The data was updated on July 3, 2019, so some information may have changed. </li>"
-                    ),
-                    
-                    HTML(
                         "<b>NYC Farmers Market Data : </b> <br>
                               <li> In the past decade the number of farmers' markets in New York State has grown at a rapid rate. </li>
                               <li> The dataset contains information detailing the time and location of community farmers' markets as well as the name and phone number of the market manager.</li>"
