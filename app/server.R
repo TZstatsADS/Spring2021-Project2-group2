@@ -112,7 +112,8 @@ shinyServer(function(input, output) {
     output$grocery_map = renderLeaflet({
       popup_features = paste('Store Name:', nyc_only$Entity.Name, '</br>',
                              'Neighborhood:',nyc_only$neighborhood, '</br>',
-                             'Current Confirmed Cases:',nyc_only$case_counts,'</br>')
+                             'Current Confirmed Cases:',nyc_only$case_counts,'</br>',
+                             'Zip Code:',nyc_only$Zip.Code,'</br>')
       
       leaflet(nyc_only) %>% 
         addProviderTiles(providers$CartoDB.Positron) %>% 
