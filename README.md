@@ -30,11 +30,15 @@ All of the groups members did great contibutions to the project.
 
 All five members work together on looking for the suitable datasets for the map and the analysis. And all team members participated in the dicussion of project topic and actively put forward their own ideas.
 
-Zi Fang cleaned and grouped data for NYC coronavirus cases and NYPD shooting cases and worked on building a map. She generated the idea of concerning app users' safety issues on their way to the target grocery store besides finding the store. She created the safety map tab by creating a map to indicate precise shooting incident locations and creating an interactive pie chart to show the percentage of shooting incidents in each borough. She is also the presenter of the grocery store shiny app.
+Pin-Chun Chen cleaned and grouped data for NYC coronavirus cases and worked on building a basic information map based on Zip Code. By drawing it on a map of NYC, he created the essential information about COVID various counts and dara of the test results. He designed a function to point out the specific Zip Code arera according to user input. He also developed a slider by connecting the UI with the map to display the time series of the percentage of COVID positive test results in each Zip Code area.
+
+Zi Fang cleaned and grouped data for NYC coronavirus cases and NYPD shooting cases and worked on building a map. She generated the idea of concerning app users' safety issues on their way to the target grocery store besides finding the store. She created the safety map tab by creating a map to indicate precise shooting incident locations and creating an interactive pie chart to show the percentage of shooting incidents in each borough. She will be the presenter of our group.
 
 Catherine Gao created the basic framework by designing the UI, theme, and segmentation of the webpage. She created the Home tab by adding informative COVID status trackers, designing the header banner, and crafting the introduction message to users. She also developed the Neighborhood Analysis tab by using interactive pie charts to show the percentage of cases by different classifications.
 
 Siyuan Sang cleaned and grouped data for NYC coronavirus cases. He created the age group analysis tab by vitualizing the counts and rates of COVID-19 data and showed some evidences of the "survivor bias" that could exist among the aged group. He generated the data references and created the data source tab. And he summarized the whole idea of the project and wrote the project README on the Github.
+
+Yingyao Wu built the grocery stores search tool and summarized important features with regards to COVID regional case counts. Cleaned and combined retail store and farmers market data sets, and filtered a subset of stores that have geographic locations and are relevant to NYC users. Created drop down menu and slider bar to allow users to choose a specific zip code and range to search for grocery stores. Listed stores with lowest COVID case counts in a table and visually displayed store information on an interactive map.
 
 All team members approve our work presented in this GitHub repository including this contributions statement. 
 
