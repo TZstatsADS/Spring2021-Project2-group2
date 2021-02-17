@@ -329,7 +329,8 @@ dashboardPage(
                         " <p>Fang,Zi           |email: zf2258@columbia.edu </p>",
                         " <p>Gao,Catherine     |email: catherine.gao@columbia.edu </p>",
                         " <p>Sang,Siyuan       |email: ss6165@columbia.edu </p>",
-                        " <p>Wu,Yingyao        |email: yw3659@columbia.edu </p>"
+                        " <p>Wu,Yingyao        |email: yw3659@columbia.edu </p>",
+                        " <p>This page's template is credit to Fall 2020 Project2 Group1. </p>"
                     )
             )
     )))
