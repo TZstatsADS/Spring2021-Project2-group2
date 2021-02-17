@@ -87,7 +87,7 @@ dashboardPage(
                     fluidPage(
                         fluidRow(
                             width = 70,
-                            h1("Cases Count in ZipCode", align = "center")),
+                            h1("Cases Count by ZipCode", align = "center")),
                         sidebarLayout(
                             position = "right",
                             sidebarPanel(

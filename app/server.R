@@ -148,7 +148,7 @@ shinyServer(function(input, output) {
         domain = chosen_parameter)
       
       labels <-  paste0(
-        "Zip Code: ", US_zipcode$MODIFIED_ZCTA, "<br/>",
+        "Zip Code: ", US_zipcode$GEOID10, "<br/>",
         "Neighborhood: ", US_zipcode$NEIGHBORHOOD_NAME, "<br/>",
         "Borough: ", US_zipcode$BOROUGH_GROUP, "<br/>",
         "Population: ", floor(US_zipcode$POP_DENOMINATOR), "<br/>",
